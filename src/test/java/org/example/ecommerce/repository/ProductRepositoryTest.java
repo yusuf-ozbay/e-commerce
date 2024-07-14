@@ -65,7 +65,7 @@ class ProductRepositoryTest {
         product.setName("product 1");
         product.setDescription("product 2 description");
         product.setSku("100ABCgD");
-        product.setPrice(new BigDecimal(200));
+        product.setPrice(new BigDecimal(2000));
         product.setActive(true);
         product.setImageUrl("prodguct2.png");
         //create Product
@@ -73,7 +73,7 @@ class ProductRepositoryTest {
         product3.setName("product 4");
         product3.setDescription("product 4 description");
         product3.setSku("100ABCdDEgFG");
-        product3.setPrice(new BigDecimal(5550));
+        product3.setPrice(new BigDecimal(3000));
         product3.setActive(true);
         product3.setImageUrl("productg4.png");
         productRepository.saveAll(List.of(product, product3));
@@ -110,11 +110,9 @@ class ProductRepositoryTest {
     void deleteAllMethod() {
 
 
-       // productRepository.deleteAll();
-        Product product  = productRepository.findById(13L).get();
-        Product product2  = productRepository.findById(14L).get();
+     productRepository.deleteAll();
 
-        productRepository.deleteAll(List.of(product,product2));
+
 
     }
 
