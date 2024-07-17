@@ -2,6 +2,8 @@ package org.example.ecommerce.repository;
 
 import org.example.ecommerce.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -33,5 +35,20 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     List<Product> findByNameIn(List<String> names);
 
+    @Query("SELECT p from Product p where p.name= ?1 or p.description=?2" )
+    Product findByNameOrDescriptionJPQLIndexParam(String name, String description);
+
+    @Query("SELECT p from Product p where p.name= :name or p.description= :description" )
+    Product findByNameOrDescriptionJPQLNamedParam(@Param("name") String name,
+                                                  @Param("description")  String description);
+
+
+    @Query(value = "SELECT * from Product p where p.name = ?1 or p.description = ?2",nativeQuery = true )
+    Product findByNameOrDescriptionSQLIndexParam(String name, String description);
+
+
+    @Query(value = "SELECT * from Product p where p.name= :name or p.description= :description",nativeQuery = true )
+    Product findByNameOrDescriptionSQLNamedParam(@Param("name") String name,
+                                                  @Param("description")  String description);
 
 }
